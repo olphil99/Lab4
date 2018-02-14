@@ -43,7 +43,7 @@ public class Colosseum {
      * <p>
      * Requirements we should check the user for: <br>
      * - Hit points are between 1 and MAX_HIT_POINTS <br>
-     * - No more than 50 points are split between attack level and defense leve <br>
+     * - No more than 50 points are split between attack level and defense level <br>
      * - Attack level and defense level must have at least 1 point each <br>
      * Example of how this will look to the user:
      * <p>
@@ -67,12 +67,47 @@ public class Colosseum {
      * Sorry. The defense level must be between 1 and 23: 23
      *
      * @return tempPokemon - the Pokemon we built and are going to set our fighting Pokemon to <br>
-     *         (Look, we can return objects too!)
-     *         <p>
-     *         Implement this function.
+     * (Look, we can return objects too!)
+     * <p>
+     * Implement this function.
      */
     public static Pokemon buildPokemon() {
-        Pokemon tempPokemon = new Pokemon();
+        String name;
+        int hitPoints, attackLvl, defenseLvl;
+        myScan = new Scanner(System.in);
+
+        System.out.print("Please name your Pokemon: ");
+        name = myScan.nextLine();
+
+        System.out.print("How many hit points will it have? (1-50): ");
+        hitPoints = myScan.nextInt();
+
+        while (hitPoints < 1 || hitPoints > 50) {
+            System.out.print("Sorry. Hit points must be between 1 and 50: ");
+            hitPoints = myScan.nextInt();
+        }
+
+        do {
+            System.out.println("Split fifty points between attack level and defense level.");
+            System.out.print("Enter your attack level (1-49): ");
+            attackLvl = myScan.nextInt();
+
+            while (attackLvl < 1 || attackLvl > 49) {
+                System.out.print("Sorry. Attack Level must be between 1 and 50: ");
+                attackLvl = myScan.nextInt();
+            }
+
+            System.out.print("Enter your defense level (1-23): ");
+            defenseLvl = myScan.nextInt();
+
+            while (defenseLvl < 1 || defenseLvl > 23) {
+                System.out.print("Sorry. Defense Level must be between 1 and 50: ");
+                defenseLvl = myScan.nextInt();
+            }
+
+        } while (defenseLvl + attackLvl > 50);
+
+        Pokemon tempPokemon = new Pokemon(name, hitPoints, attackLvl, defenseLvl);
         return tempPokemon;
     }
 
@@ -151,6 +186,7 @@ public class Colosseum {
             secondPokemon = tempPokemon;
         }
     }
+
     /**
      * Conducts the Pokemon battle.
      * <p>
